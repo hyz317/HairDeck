@@ -1,0 +1,12 @@
+{
+  "_comment": "Copy to configs/paths.json (or point HAIRDECK_CONFIG to a copy) and edit. Every key is optional except root; environment variables HAIRDECK_ROOT, HAIRDECK_DATA, HAIRDECK_CKPT, HAIRDECK_LOGS, HAIRDECK_RESULTS, HAIRDECK_SCRATCH, HAIRDECK_WEIGHTS, HAIRDECK_DINOV3_REPO, HAIRDECK_SAM3_REPO take precedence. See hairdeck/paths.py.",
+  "root": "/path/to/workspace",
+  "data": "/path/to/workspace/data",
+  "ckpt": "/path/to/workspace/ckpt",
+  "logs": "/path/to/workspace/logs",
+  "results": "/path/to/workspace/results",
+  "scratch": "/path/to/workspace/scratch",
+  "weights": "/path/to/workspace/third_party/weights",
+  "dinov3_repo": "/path/to/workspace/third_party/dinov3_src",
+  "sam3_repo": "/path/to/workspace/third_party/sam3_src"
+}

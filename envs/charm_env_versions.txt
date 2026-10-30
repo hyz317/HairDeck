@@ -1,0 +1,15 @@
+# key package versions of the environment used for this release phase (env: charm)
+python 3.9.23
+torch 2.1.0+cu118
+numpy 1.26.3
+scipy 1.13.1
+trimesh 4.8.1
+scikit-learn 1.6.1
+point-cloud-utils 0.34.0
+open3d 0.19.0
+safetensors 0.6.2
+Pillow 11.0.0
+opencv-python 4.6.0.66
+networkx 3.2.1
+rtree (not installed)
+scikit-image 0.24.0

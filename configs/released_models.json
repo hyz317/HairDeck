@@ -1,0 +1,149 @@
+{
+  "_comment": "Released checkpoints and data files (paths relative to the workspace root, hairdeck.paths). \"checkpoint\" is the released file (safetensors, hairdeck.ckpt), \"trained\" the training output of \"command\" it is made from. _public_strings: names that may appear in the export although they contain a private string (the VRM author of the avatar body).",
+  "_public_strings": [
+    "hyz317"
+  ],
+  "card_vae": {
+    "checkpoint": "ckpt/card_vae/model.safetensors",
+    "files": [
+      "model.pt",
+      "stats.json",
+      "latents_train.npy",
+      "latents_test.npy",
+      "latent_stats.json",
+      "latents_train_head.npy",
+      "latents_test_head.npy",
+      "latent_stats_head.json"
+    ],
+    "command": "scripts/train/train_vae.py --name card_vae --zdim 32 --nf 6 --steps 80000 --dec ada --geo_loss --uniform_target --accum 2",
+    "args": {
+      "zdim": 32,
+      "dim": 256,
+      "depth": 4,
+      "L": 128,
+      "bs": 1024,
+      "lr": 0.0003,
+      "kl": 1e-06,
+      "w_n": 0.1,
+      "nf": 6,
+      "dec": "ada",
+      "accum": 2,
+      "uniform_target": true,
+      "geo_loss": true
+    },
+    "params_million": 8.07,
+    "then": "scripts/train/export_latents.py card_vae",
+    "trained": "ckpt/card_vae/model.pt"
+  },
+  "dora_condition": {
+    "files": [
+      "data/cond_dora_train.npy",
+      "data/cond_dora_test.npy",
+      "data/cond_dora_info.json"
+    ],
+    "command": "scripts/data.py DATASET_DIR VRM_DIR --steps dora  (both splits from the dataset's hair_reform.ply; scripts/test.py pointcloud computes the test condition itself from CHARM's released test point clouds data/charm_test_pc)",
+    "weights": "third_party/weights/dora_vae_1_1/dora_vae_1_1_shape_model.safetensors (Seed3D/Dora-VAE-1.1, Apache-2.0; scripts/setup/download_weights.py --only dora)"
+  },
+  "point_cloud_dit": {
+    "checkpoint": "ckpt/pointcloud_model/model.safetensors",
+    "command": "scripts/train/train_pc_dit.py --cond dora --name pointcloud_model --dim 768 --depth 12 --heads 12 --steps 80000",
+    "args": {
+      "vae": "card_vae",
+      "bs": 64,
+      "lr": 0.0001,
+      "ckpt_every": 10000,
+      "cfg": 2.0,
+      "seed": 0
+    },
+    "params_million": 181.3,
+    "sampling": "scripts/test.py pointcloud  (the test set: 50 Euler steps, CFG 2, seeds 0, 1, 2 in results/pointcloud/seed<k>, then the evaluation)",
+    "trained": "ckpt/pointcloud_model/ema_080000.pt"
+  },
+  "chain_dit": {
+    "checkpoint": "ckpt/chain_model/model.safetensors",
+    "command": "scripts/train/train_chain_dit.py --name chain_model --steps 80000",
+    "args": {
+      "dim": 384,
+      "depth": 8,
+      "heads": 6,
+      "bs": 128,
+      "lr": 0.0002,
+      "ema": 0.999,
+      "p_drop": 0.1,
+      "ckpt_every": 5000,
+      "cfg": 2.0,
+      "seed": 0,
+      "head": true
+    },
+    "params_million": 30.5,
+    "sampling": "scripts/test.py chains  (the test set on the artists' cards: 50 Euler steps, CFG 2, seeds 0, 1, 2 in results/chains/seed<k>, then the evaluation; --cards results/pointcloud: on the point-cloud model's cards, chain seed k on card seed k)",
+    "trained": "ckpt/chain_model/ema_080000.pt"
+  },
+  "image_dit": {
+    "checkpoint": "ckpt/image_model/model.safetensors",
+    "about": "the image model: RGB input (DINOv3 ViT-L/16 tokens of the 448 px crop), head frame, widened synthetic augmentation, restyled renders mixed in with p 0.33, initialised from the point-cloud model, 100K steps",
+    "args": {
+      "dim": 768,
+      "depth": 12,
+      "heads": 12,
+      "res": 448,
+      "dino": "vitl16",
+      "K": 64,
+      "vae": "card_vae",
+      "head": true,
+      "rep": "rgb"
+    },
+    "command": "scripts/train/train_img_dit.py --style_cfg configs/style_aug.json --name image_model --vae card_vae --res 448 --bs 48 --workers 32 --ckpt_every 10000 --steps 100000 --init ckpt/pointcloud_model/ema_080000.pt",
+    "sampling": "scripts/image_to_hair.py IMAGE --out OUT  (hairdeck.infer.image.Pipeline: Euler 50, CFG 2, seed 0)",
+    "params_million": 182.3,
+    "trained": "ckpt/image_model/ema_100000.pt"
+  },
+  "inference_data": {
+    "files": [
+      "data/token_stats.json",
+      "data/token_stats_head.json",
+      "data/head_frame_train.npz",
+      "data/spring/chain_stats_head.json"
+    ],
+    "about": "card token normalisation (point-cloud and head-frame models), the canonical head of the head frame (W, O; head proxy), chain token statistics of the chain DiT"
+  },
+  "avatar_body": {
+    "files": [
+      "data/avatar/body.json",
+      "data/avatar/avatar.vrm",
+      "data/avatar/hair.glb"
+    ],
+    "about": "the avatar body of the VRM export (hairdeck.vrm; a VRoid Studio template avatar): the VRM, its original hair (hair.glb, for the check that the export removed it) and body.json with its head-frame fit and the VRM meta written into exported files (author hyz317, Apache-2.0)"
+  },
+  "demo_examples": {
+    "files": [
+      "data/demo_examples/examples.json",
+      "data/demo_examples/ex01.png",
+      "data/demo_examples/ex02.png",
+      "data/demo_examples/ex03.png",
+      "data/demo_examples/ex04.png",
+      "data/demo_examples/ex05.png",
+      "data/demo_examples/ex06.png",
+      "data/demo_examples/ex07.png",
+      "data/demo_examples/ex08.png",
+      "data/demo_examples/ex09.png",
+      "data/demo_examples/ex10.png",
+      "data/demo_examples/ex11.png",
+      "data/demo_examples/ex12.png"
+    ],
+    "about": "the 12 example images of the demo (examples.json lists them in the order shown)"
+  },
+  "test_data": {
+    "files": [
+      "data/test_cards_orig/",
+      "data/test_cards_orig_dirs.npz",
+      "data/spring/chains_test.jsonl",
+      "data/spring/chains_test_head.npz",
+      "data/cards_test.npz",
+      "ckpt/card_vae/latents_test_head.npy",
+      "data/head_frame_test.npz",
+      "data/head_params_test.json"
+    ],
+    "about": "evaluation data of scripts/test.py (file names: test row, 000 to 099): the cards of the original hair meshes of the 100 test cases (CHARM-format card json, 8 columns; for the 24 combined-template cases, of their two template meshes) and the true width direction at each of their control points (test_cards_orig_dirs.npz), read by the pointcloud test; the spring-bone chains of the test characters (as extracted from their VRM files, and as chain tokens in the head frame) and the card features and head-frame card latents of the GT cards that the chain model is conditioned on, and the test characters' head fits and head frames, read by the chains test"
+  }
+}

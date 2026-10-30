@@ -1,0 +1,53 @@
+{
+ "best": {
+  "cfg": {
+   "person_prompts": [
+    "person",
+    "anime character"
+   ],
+   "t_person": 0.4,
+   "person_sel": "main",
+   "close_r": 0.0,
+   "fill": "none",
+   "no_person": "alpha",
+   "add": "enclosed",
+   "add_ratio": 0.7,
+   "add_t": 0.7,
+   "add_max": 1.0,
+   "acc_prompts": [],
+   "t_acc": 0.5,
+   "acc_dy": 0.0,
+   "acc_area": 2.5,
+   "hair_prompts": [
+    "hair"
+   ],
+   "t_hair": 0.5,
+   "hair_low": 0.0,
+   "extra_prompts": [
+    "clothes",
+    "hand"
+   ],
+   "t_extra": 0.5,
+   "extra_alpha": 0.5,
+   "extra_max": 0.3,
+   "cluster_ov": 0.1,
+   "cluster_iter": true,
+   "dens_fill": 0.7,
+   "dens_w": 0.04,
+   "dens_t": 0.7,
+   "soft": "feather",
+   "soft_sigma": 0.8,
+   "cluster_alpha": 0.5,
+   "hair_minus": [
+    "fur"
+   ],
+   "t_minus": 0.5,
+   "box_fallback": 0.2,
+   "face_sel": "main_big"
+  },
+  "alpha": "birefnet_matting",
+  "alpha_size": 768,
+  "wr": 1024,
+  "note": "recommended: SAM3 with 7 prompts (person, anime character, hair, face, clothes, hand, fur) + BiRefNet-matting at 768; box = hair | face (as the baseline) except hair instances that are mostly fur (animal tails)"
+ }
+}

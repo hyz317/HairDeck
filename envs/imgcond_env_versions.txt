@@ -1,0 +1,15 @@
+# key package versions of the environment used for this release phase (env: imgcond)
+python 3.12.12
+torch 2.7.0+cu126
+numpy 2.5.4
+scipy 1.16.3
+trimesh 5.1.1
+scikit-learn 1.8.0
+point-cloud-utils (not installed)
+open3d (not installed)
+safetensors 0.7.0
+Pillow 12.0.0
+opencv-python 4.11.0.86
+networkx 3.6.1
+rtree (not installed)
+scikit-image 0.25.2

@@ -1,0 +1,2 @@
+# The Gradio demo (demo/app.py) on top of requirements.txt; `spaces` only matters on a Hugging Face ZeroGPU Space.
+gradio==6.30.0

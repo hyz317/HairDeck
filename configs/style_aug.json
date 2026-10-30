@@ -1,0 +1,51 @@
+{
+ "_comment": "Appearance augmentation of the image model's training renders (hairdeck.data.imgdata): p_style = probability of the style branch (style operations of hairdeck.data.style_ops at the render's native resolution, at least min_ops of them; colour = probabilities of the colour stage). The released image model was trained with these settings and, in addition, restyled renders mixed in with probability 0.33; p_style 0 trains with the base augmentation only.",
+ "p_style": 0.6,
+ "min_ops": 1,
+ "colour": {
+  "keep": 0.18,
+  "gray": 0.08,
+  "mono_tone": 0.1,
+  "sketch": 0.1,
+  "hue_full": 0.14,
+  "chan": 0.1,
+  "flat": 0.15,
+  "painterly": 0.15
+ },
+ "p_ink": 0.2,
+ "p_light": 0.25,
+ "light_kinds": {
+  "rim": 0.4,
+  "shade": 0.4,
+  "both": 0.2
+ },
+ "p_lowres": 0.2,
+ "lowres_px": [
+  150,
+  300
+ ],
+ "p_blur": 0.15,
+ "blur_sigma": [
+  1.2,
+  2.5
+ ],
+ "p_sharpen": 0.1,
+ "sharpen_amount": [
+  0.6,
+  1.6
+ ],
+ "sharpen_radius": [
+  1.0,
+  2.5
+ ],
+ "p_noise": 0.15,
+ "noise_sigma": [
+  2.0,
+  10.0
+ ],
+ "p_jpeg": 0.2,
+ "jpeg_q": [
+  15,
+  50
+ ]
+}
