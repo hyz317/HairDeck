@@ -12,6 +12,10 @@
   <a href="#video"><img src="https://img.shields.io/badge/Video-Watch-426b92" alt="Watch the demonstration"></a>
 </p>
 
+<p align="center"><strong>English</strong> · <a href="README_zh-CN.md">简体中文</a> · <a href="README_ja.md">日本語</a></p>
+
+<a name="video"></a>
+
 ## Video
 
 https://github.com/user-attachments/assets/3eec4de5-ed21-4b75-b7d7-4bd599cbfeb2
