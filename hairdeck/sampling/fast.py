@@ -47,17 +47,30 @@ def _graphs_on():
 
 def _compile_on():
     want = os.environ.get('HAIRDECK_COMPILE')
+    if want is None:
+        want = os.environ.get('HAIRDECK_FAST')
     return bool(torch.version.hip) if want is None else want == '1'
 
 
 _COMPILE_FAILED = []
 
 
+def _compile_failed(exc):
+    # Keep no exception traceback: it can retain the denoiser's GPU tensors after offload.
+    _COMPILE_FAILED.append(True)
+    print(f'hairdeck.sampling.fast: torch.compile failed ({type(exc).__name__}: {exc}); sampling eagerly',
+          flush=True)
+
+
 def _compiled(fn):
     """torch.compile(fn), or fn itself after a compilation error (reported once)."""
     if _COMPILE_FAILED:
         return fn
-    c = torch.compile(fn, dynamic=False, fullgraph=True)
+    try:
+        c = torch.compile(fn, dynamic=False, fullgraph=True)
+    except Exception as e:  # noqa: BLE001
+        _compile_failed(e)
+        return fn
 
     def call(*a):
         if _COMPILE_FAILED:
@@ -65,9 +78,7 @@ def _compiled(fn):
         try:
             return c(*a)
         except Exception as e:  # noqa: BLE001  (inductor / Triton toolchain problems: keep sampling, eagerly)
-            _COMPILE_FAILED.append(e)
-            print(f'hairdeck.sampling.fast: torch.compile failed ({type(e).__name__}: {e}); sampling eagerly',
-                  flush=True)
+            _compile_failed(e)
             return fn(*a)
     return call
 
@@ -95,9 +106,17 @@ class _Weights:
         return self._key(model) == self.key
 
 
+def clear_weights(model):
+    """Release cached weight copies before a model transfer or cache replacement."""
+    cached = vars(model).pop('_hairdeck_fast_w', None)
+    if cached is not None:
+        cached.w.clear()
+
+
 def _weights(model):
     w = getattr(model, '_hairdeck_fast_w', None)
     if w is None or not w.fresh(model):
+        clear_weights(model)
         w = _Weights(model)
         object.__setattr__(model, '_hairdeck_fast_w', w)  # not a submodule / buffer: stays out of state_dict
     return w

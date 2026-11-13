@@ -11,7 +11,7 @@ throughput. The same model weights and operations are used; no retraining.
    so it is computed for all 50 steps together (M = steps x batch) instead of one bandwidth-bound M = 2 GEMM per block
    and step.
 3. **bf16 weight copies**, made once per model (and remade if its parameters change) instead of autocast casting every
-   fp32 weight on every call.
+   fp32 weight on every call. Model offload releases these copies; the next sampling call rebuilds them on the GPU.
 4. **`torch.compile` of one step.** Inductor fuses the norms, modulations, GELU, residuals and the CFG combination
    between the GEMMs. In the eager step these small kernels are about half of the time. If compilation fails (for
    example no Triton, or a GPU the installed Triton cannot target) the sampler prints one line and continues eagerly.
