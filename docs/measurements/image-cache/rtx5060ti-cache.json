@@ -1,0 +1,74 @@
+[
+  {
+    "label": "warmup",
+    "ok": true,
+    "timings": {
+      "prep": 19.35,
+      "dino+dit+decode": 3.051,
+      "colors": 0.309,
+      "chains": 2.374,
+      "glb": 0.707,
+      "total": 26.1
+    },
+    "cache": {
+      "prep_hit": false
+    },
+    "notes": [
+      "input_alpha"
+    ]
+  },
+  {
+    "label": "original",
+    "ok": true,
+    "timings": {
+      "prep": 0.997,
+      "dino+dit+decode": 2.778,
+      "colors": 0.147,
+      "chains": 1.823,
+      "glb": 0.734,
+      "total": 6.78
+    },
+    "cache": {
+      "prep_hit": false
+    },
+    "notes": [
+      "input_alpha"
+    ]
+  },
+  {
+    "label": "fill",
+    "ok": true,
+    "timings": {
+      "prep": 0.994,
+      "dino+dit+decode": 2.556,
+      "colors": 0.14,
+      "chains": 1.696,
+      "glb": 0.495,
+      "total": 6.152
+    },
+    "cache": {
+      "prep_hit": false
+    },
+    "notes": [
+      "input_alpha"
+    ]
+  },
+  {
+    "label": "hit",
+    "ok": true,
+    "timings": {
+      "prep": 0.011,
+      "dino+dit+decode": 2.54,
+      "colors": 0.056,
+      "chains": 1.876,
+      "glb": 0.558,
+      "total": 5.253
+    },
+    "cache": {
+      "prep_hit": true
+    },
+    "notes": [
+      "input_alpha"
+    ]
+  }
+]

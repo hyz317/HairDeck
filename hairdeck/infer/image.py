@@ -26,6 +26,8 @@ Each run writes out_dir/: input.png, prep.png (preprocessing panel), model_input
 their colours), tokens_seed<s>.npy (raw card tokens), chains_seed<s>.json, hair_seed<s>[_nohead][_chains].glb,
 info.json.
 """
+import copy
+import hashlib
 import json
 import os
 import time
@@ -181,7 +183,41 @@ class Pipeline:
         self.residency.register('generation', self.enc, self.model, self.vae.vae.model, self.color, self.chain)
         if not ZERO_GPU:  # ZeroGPU: models are placed on cuda while no real GPU is attached (CUDA emulation)
             dev.sync(self.dev)
+        self.cache_enabled = os.environ.get('HAIRDECK_IMAGE_CACHE', '1' if torch.version.hip else '0') == '1'
+        self.clear_image_cache()
         self.load_sec = round(time.time() - t0, 1)
+
+    def clear_image_cache(self):
+        """Release the last image's CPU masks and GPU features; call after changing model/preprocessor settings."""
+        self._prep_cache = None
+        self._feature_cache = None
+
+    def _use_image_cache(self):
+        return self.cache_enabled and not self.residency.enabled and not ZERO_GPU
+
+    @staticmethod
+    def _pixels_key(*arrays):
+        h = hashlib.sha256()
+        for a in arrays:
+            if a is None:
+                h.update(b'none')
+            else:
+                h.update(str((a.shape, a.dtype.str)).encode())
+                h.update(np.ascontiguousarray(a).data)
+        return h.digest()
+
+    def image_features(self, crop):
+        """Reuse DINO tokens across colours, variations and requests. Bounded to one crop."""
+        key = self._pixels_key(crop) if self._use_image_cache() else None
+        cached = self._feature_cache
+        if key is not None and cached is not None and cached[0] == key:
+            return cached[1]
+        img = torch.from_numpy(crop.copy()).permute(2, 0, 1)[None].to(self.dev)
+        with torch.no_grad(), dev.amp(self.dev):
+            features = self.enc(img)
+        if key is not None:
+            self._feature_cache = (key, features)
+        return features
 
     # ------------------------------------------------------------ stages
     def prep(self, rgb, alpha=None, image_path=None, preprocessor=None):
@@ -204,11 +240,20 @@ class Pipeline:
     def sample(self, crop, x0, steps, cfg):
         """-> (cards, raw card tokens (1, 192, 40))"""
         self.residency.activate('generation')
-        img = torch.from_numpy(crop.copy()).permute(2, 0, 1)[None].to(self.dev)
         with torch.no_grad(), dev.amp(self.dev):
-            ctx = self.model.encode_cond(self.enc(img))
+            ctx = self.model.encode_cond(self.image_features(crop))
             x = euler_cfg(self.model, ctx, x0, steps, cfg)
         return tokens_to_cards(self.tok, x, self.vae, fix=True)[0], x
+
+    def sample_variations(self, crop, noises, steps, cfg):
+        """Sample seeds together; retain single-sample VAE decoding and per-seed token shapes."""
+        self.residency.activate('generation')
+        with torch.no_grad(), dev.amp(self.dev):
+            ctx = self.model.encode_cond(self.image_features(crop))
+            ctx = ctx.expand(len(noises), -1, -1).contiguous()
+            x = euler_cfg(self.model, ctx, torch.cat(noises, dim=0), steps, cfg)
+        return [(tokens_to_cards(self.tok, row, self.vae, fix=True)[0], row)
+                for row in x.split(1, dim=0)]
 
     def matte_crop(self, p):
         """The person matte of a preprocessing result cut to the model input (bool (res, res)); an empty one: all true
@@ -222,7 +267,7 @@ class Pipeline:
         self.residency.activate('generation')
         img = torch.from_numpy(crop.copy()).permute(2, 0, 1)[None].to(self.dev).float()
         with torch.no_grad(), dev.amp(self.dev):
-            return self.color.encode_ctx(self.enc(img), img, torch.from_numpy(matte)[None].to(self.dev))
+            return self.color.encode_ctx(self.image_features(crop), img, torch.from_numpy(matte)[None].to(self.dev))
 
     def card_colors(self, ctx, x, n_cards):
         """Colours of generated cards: per card (in the order of tokens_to_cards) 16 sRGB colours along it, from root to
@@ -279,10 +324,12 @@ class Pipeline:
 
     @managed_request
     def run(self, image, seed=0, steps=50, cfg=2.0, n_samples=1, out_dir=None, x0=None, write=True, chains=True, prep=None,
-            colors=True):
+            colors=True, batch_variations=None):
         """image: path, PIL image or (H, W, 3|4) uint8 array; n_samples variations with the seeds seed, seed + 1, ... (at
         most 4); out_dir (default <out_root>/<time>_<id>) gets the files listed in the module docstring;
-        prep: another preprocessor for this call; colors False: one hair colour instead of the colour model's"""
+        prep: another preprocessor for this call; colors False: one hair colour instead of the colour model's;
+        batch_variations: opt-in batched sampling (default HAIRDECK_BATCH_VARIATIONS=0), changes same-seed results.
+        Disabled with model offload / ZeroGPU. First use of each batch shape may compile."""
         T = {}
         sync = lambda: dev.sync(self.dev)
         t_all = time.time()
@@ -290,7 +337,18 @@ class Pipeline:
         backend = prep or self.preprocessor
         sync()
         t0 = time.time()
-        p, crop = self.prep(rgb, alpha, src, backend)
+        if not self._use_image_cache():
+            self.clear_image_cache()
+        # Custom per-call preprocessors may be stateful; never cache their output.
+        key = (self._pixels_key(rgb, alpha), src, id(backend)) if self._use_image_cache() and prep is None else None
+        cached = self._prep_cache
+        cache_hit = key is not None and cached is not None and cached[0] == key
+        if cache_hit:
+            p, crop = copy.deepcopy(cached[1])
+        else:
+            p, crop = self.prep(rgb, alpha, src, backend)
+            if key is not None and crop is not None:
+                self._prep_cache = (key, copy.deepcopy((p, crop)))
         sync()
         T['prep'] = time.time() - t0
         notes = list(p['notes']) + ([size_note] if size_note else [])
@@ -304,7 +362,7 @@ class Pipeline:
         vis = prep_panel(p, crop)
         res = dict(ok=False, message='', prep_vis=vis, model_input=Image.fromarray(crop) if crop is not None else None,
                    samples=[], timings=T, out_dir=out_dir, status=p['status'], notes=notes, box=p['box'],
-                   hair_color=col, prep_backend=p['backend'], prep_info=p['info'],
+                   hair_color=col, prep_backend=p['backend'], prep_info=p['info'], cache=dict(prep_hit=cache_hit),
                    params=dict(seed=int(seed), steps=int(steps), cfg=float(cfg), n_samples=int(n_samples),
                                chains=bool(chains), colors=bool(colors)))
         if write:
@@ -334,13 +392,30 @@ class Pipeline:
         if want_chains:
             T['chains'] = 0.0
         T['glb'] = 0.0
+        # Explicit opt-in: batching changes GEMM rounding and may change the sampled hairstyle.
+        batch_requested = (os.environ.get('HAIRDECK_BATCH_VARIATIONS', '0') == '1'
+                           if batch_variations is None else bool(batch_variations))
+        batched = None
+        res['params']['batch_variations'] = bool(batch_requested and len(seeds) > 1
+                                                and not self.residency.enabled and not ZERO_GPU)
+        if res['params']['batch_variations']:
+            sync()
+            t0 = time.time()
+            noises = [x0 if x0 is not None and k == 0 else self.noise(s) for k, s in enumerate(seeds)]
+            batched = self.sample_variations(crop, noises, int(steps), float(cfg))
+            sync()
+            T['dino+dit+decode'] = time.time() - t0
         for k, s in enumerate(seeds):
             sync()
             t0 = time.time()
-            x = (x0 if (x0 is not None and k == 0) else self.noise(s))
-            cards, tokens = self.sample(crop, x, int(steps), float(cfg))
+            if batched is None:
+                x = (x0 if (x0 is not None and k == 0) else self.noise(s))
+                cards, tokens = self.sample(crop, x, int(steps), float(cfg))
+            else:
+                cards, tokens = batched[k]
             sync()
             t1 = time.time()
+            sample_sec = t1 - t0 if batched is None else 0.0
             card_srgb = None
             if cctx is not None and cards:
                 try:
@@ -387,7 +462,7 @@ class Pipeline:
                     if f not in written and os.path.exists(f):  # of an earlier run of this seed, e.g. chains before --no-chains
                         os.remove(f)
             smp['chains'] = chains
-            T['dino+dit+decode'] += t1 - t0
+            T['dino+dit+decode'] += sample_sec
             if want_chains:
                 T['chains'] += t2 - t1
             T['glb'] += time.time() - t2

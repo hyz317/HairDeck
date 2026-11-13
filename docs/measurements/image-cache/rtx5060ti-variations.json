@@ -1,0 +1,306 @@
+[
+  {
+    "count": 2,
+    "label": "sequential_first",
+    "ok": true,
+    "timings": {
+      "prep": 8.488,
+      "dino+dit+decode": 6.572,
+      "colors": 0.353,
+      "chains": 3.813,
+      "glb": 0.857,
+      "total": 20.36
+    },
+    "notes": [
+      "input_alpha"
+    ],
+    "samples": [
+      {
+        "seed": 1,
+        "n_cards": 115,
+        "n_chains": 17,
+        "colors": true
+      },
+      {
+        "seed": 2,
+        "n_cards": 91,
+        "n_chains": 11,
+        "colors": true
+      }
+    ],
+    "peak_allocated_gib": 9.783782482147217,
+    "peak_reserved_gib": 11.044921875
+  },
+  {
+    "count": 2,
+    "label": "batched_first",
+    "ok": true,
+    "timings": {
+      "prep": 0.837,
+      "dino+dit+decode": 2.876,
+      "colors": 0.192,
+      "chains": 3.712,
+      "glb": 0.844,
+      "total": 8.682
+    },
+    "notes": [
+      "input_alpha"
+    ],
+    "samples": [
+      {
+        "seed": 1,
+        "n_cards": 115,
+        "n_chains": 17,
+        "colors": true
+      },
+      {
+        "seed": 2,
+        "n_cards": 91,
+        "n_chains": 11,
+        "colors": true
+      }
+    ],
+    "peak_allocated_gib": 9.216081619262695,
+    "peak_reserved_gib": 11.044921875
+  },
+  {
+    "count": 2,
+    "label": "sequential",
+    "ok": true,
+    "timings": {
+      "prep": 0.86,
+      "dino+dit+decode": 6.931,
+      "colors": 0.202,
+      "chains": 4.018,
+      "glb": 1.201,
+      "total": 13.445
+    },
+    "notes": [
+      "input_alpha"
+    ],
+    "samples": [
+      {
+        "seed": 1,
+        "n_cards": 115,
+        "n_chains": 17,
+        "colors": true
+      },
+      {
+        "seed": 2,
+        "n_cards": 91,
+        "n_chains": 11,
+        "colors": true
+      }
+    ],
+    "peak_allocated_gib": 9.216081619262695,
+    "peak_reserved_gib": 11.044921875
+  },
+  {
+    "count": 2,
+    "label": "batched",
+    "ok": true,
+    "timings": {
+      "prep": 1.011,
+      "dino+dit+decode": 3.811,
+      "colors": 0.234,
+      "chains": 4.733,
+      "glb": 1.05,
+      "total": 11.093
+    },
+    "notes": [
+      "input_alpha"
+    ],
+    "samples": [
+      {
+        "seed": 1,
+        "n_cards": 115,
+        "n_chains": 17,
+        "colors": true
+      },
+      {
+        "seed": 2,
+        "n_cards": 91,
+        "n_chains": 11,
+        "colors": true
+      }
+    ],
+    "peak_allocated_gib": 9.216081619262695,
+    "peak_reserved_gib": 11.044921875
+  },
+  {
+    "count": 4,
+    "label": "sequential_first",
+    "ok": true,
+    "timings": {
+      "prep": 1.017,
+      "dino+dit+decode": 13.565,
+      "colors": 0.368,
+      "chains": 9.385,
+      "glb": 2.393,
+      "total": 26.942
+    },
+    "notes": [
+      "input_alpha"
+    ],
+    "samples": [
+      {
+        "seed": 1,
+        "n_cards": 115,
+        "n_chains": 17,
+        "colors": true
+      },
+      {
+        "seed": 2,
+        "n_cards": 91,
+        "n_chains": 11,
+        "colors": true
+      },
+      {
+        "seed": 3,
+        "n_cards": 114,
+        "n_chains": 20,
+        "colors": true
+      },
+      {
+        "seed": 4,
+        "n_cards": 118,
+        "n_chains": 19,
+        "colors": true
+      }
+    ],
+    "peak_allocated_gib": 9.216081619262695,
+    "peak_reserved_gib": 11.044921875
+  },
+  {
+    "count": 4,
+    "label": "batched_first",
+    "ok": true,
+    "timings": {
+      "prep": 0.988,
+      "dino+dit+decode": 3.499,
+      "colors": 0.523,
+      "chains": 10.107,
+      "glb": 2.445,
+      "total": 17.781
+    },
+    "notes": [
+      "input_alpha"
+    ],
+    "samples": [
+      {
+        "seed": 1,
+        "n_cards": 115,
+        "n_chains": 16,
+        "colors": true
+      },
+      {
+        "seed": 2,
+        "n_cards": 91,
+        "n_chains": 11,
+        "colors": true
+      },
+      {
+        "seed": 3,
+        "n_cards": 113,
+        "n_chains": 20,
+        "colors": true
+      },
+      {
+        "seed": 4,
+        "n_cards": 118,
+        "n_chains": 19,
+        "colors": true
+      }
+    ],
+    "peak_allocated_gib": 9.216081619262695,
+    "peak_reserved_gib": 11.044921875
+  },
+  {
+    "count": 4,
+    "label": "sequential",
+    "ok": true,
+    "timings": {
+      "prep": 0.904,
+      "dino+dit+decode": 13.711,
+      "colors": 0.388,
+      "chains": 7.932,
+      "glb": 1.854,
+      "total": 25.075
+    },
+    "notes": [
+      "input_alpha"
+    ],
+    "samples": [
+      {
+        "seed": 1,
+        "n_cards": 115,
+        "n_chains": 17,
+        "colors": true
+      },
+      {
+        "seed": 2,
+        "n_cards": 91,
+        "n_chains": 11,
+        "colors": true
+      },
+      {
+        "seed": 3,
+        "n_cards": 114,
+        "n_chains": 20,
+        "colors": true
+      },
+      {
+        "seed": 4,
+        "n_cards": 118,
+        "n_chains": 19,
+        "colors": true
+      }
+    ],
+    "peak_allocated_gib": 9.216081619262695,
+    "peak_reserved_gib": 11.044921875
+  },
+  {
+    "count": 4,
+    "label": "batched",
+    "ok": true,
+    "timings": {
+      "prep": 0.973,
+      "dino+dit+decode": 3.412,
+      "colors": 0.404,
+      "chains": 9.484,
+      "glb": 2.256,
+      "total": 16.771
+    },
+    "notes": [
+      "input_alpha"
+    ],
+    "samples": [
+      {
+        "seed": 1,
+        "n_cards": 115,
+        "n_chains": 16,
+        "colors": true
+      },
+      {
+        "seed": 2,
+        "n_cards": 91,
+        "n_chains": 11,
+        "colors": true
+      },
+      {
+        "seed": 3,
+        "n_cards": 113,
+        "n_chains": 20,
+        "colors": true
+      },
+      {
+        "seed": 4,
+        "n_cards": 118,
+        "n_chains": 19,
+        "colors": true
+      }
+    ],
+    "peak_allocated_gib": 9.216081619262695,
+    "peak_reserved_gib": 11.044921875
+  }
+]
