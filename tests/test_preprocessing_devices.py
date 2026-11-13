@@ -141,16 +141,24 @@ class PrepDeviceTests(unittest.TestCase):
         rgb = np.zeros((2, 2, 3), dtype=np.uint8)
         prep = dict(box=None, notes=[], rgb=rgb, hair=np.zeros((2, 2), dtype=bool),
                     status='no_hair_no_face', backend='test', info={})
-        owner = types.SimpleNamespace(dev='cuda:1', preprocessor=object(),
-                                      prep=Mock(return_value=(prep, None)), _finish=lambda result, started: result)
-        with patch.object(image, 'load_image', return_value=(rgb, None, None, 'unused.png')), \
-                patch.object(image, 'hair_color', return_value=[0, 0, 0]), \
-                patch.object(image, 'prep_panel', return_value=object()), \
-                patch.object(image.torch.cuda, 'synchronize') as sync:
-            result = image.Pipeline.run.__wrapped__(owner, 'unused.png', write=False)
-        self.assertFalse(result['ok'])
-        self.assertEqual(sync.call_count, 2)
-        self.assertTrue(all(str(call.args[0]) == 'cuda:1' for call in sync.call_args_list))
+        owner = image.Pipeline.__new__(image.Pipeline)
+        owner.dev = 'cuda:1'
+        owner.preprocessor = object()
+        owner.prep = Mock(return_value=(prep, None))
+        owner._finish = lambda result, started: result
+        owner.residency = memory.ModelResidency('cuda:1', mode='off')
+        for cache_enabled in (False, True):
+            with self.subTest(cache_enabled=cache_enabled):
+                owner.cache_enabled = cache_enabled
+                owner.clear_image_cache()
+                with patch.object(image, 'load_image', return_value=(rgb, None, None, 'unused.png')), \
+                        patch.object(image, 'hair_color', return_value=[0, 0, 0]), \
+                        patch.object(image, 'prep_panel', return_value=object()), \
+                        patch.object(image.torch.cuda, 'synchronize') as sync:
+                    result = image.Pipeline.run.__wrapped__(owner, 'unused.png', write=False)
+                self.assertFalse(result['ok'])
+                self.assertEqual(sync.call_count, 2)
+                self.assertTrue(all(str(call.args[0]) == 'cuda:1' for call in sync.call_args_list))
 
 
 class MattingDeviceTests(unittest.TestCase):
