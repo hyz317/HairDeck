@@ -29,6 +29,10 @@ def fm_sample(model, ctx, n_tokens, token_dim, steps=50, cfg=1.0, shift=1.0, gen
     """Integrate from noise (t = 1) to data (t = 0) in `steps` uniform steps (optionally time-shifted); Euler or Heun."""
     B = ctx.shape[0]
     x = dev.randn((B, n_tokens, token_dim), ctx.device, generator)
+    if sampler == 'euler' and shift == 1.0:
+        from . import fast
+        if fast.enabled(model):  # the same steps, restructured for small batches (sampling/fast.py)
+            return fast.euler(model, ctx, x, steps, cfg)
     ts = torch.linspace(1, 0, steps + 1, device=ctx.device)
     if shift != 1.0:
         ts = shift * ts / (1 + (shift - 1) * ts)
