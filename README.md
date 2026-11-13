@@ -57,6 +57,8 @@ silicon Macs run it on MPS (see macOS below).
 
 **macOS (Apple silicon):** Follow [macOS setup](docs/macos.md): the same pipeline runs on Apple MPS, without CUDA or Triton.
 
+**AMD ROCm (Linux):** See [ROCm setup](docs/rocm.md) for the tested Radeon 8060S / Strix Halo container, including HIP-enabled torchvision and headless rendering.
+
 **Linux:** Install the dependencies below and make `ffmpeg` available on your `PATH`.
 
 ```bash

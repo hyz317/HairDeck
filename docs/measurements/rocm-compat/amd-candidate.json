@@ -1,0 +1,546 @@
+{
+  "revision": "61c1934",
+  "python": "3.12.15",
+  "platform": "Linux-7.2.8-9-omarchy-x86_64-with-glibc2.35",
+  "torch": "2.13.0+git733fca1",
+  "torchvision": "0.28.0+8fb8771",
+  "cuda": null,
+  "hip": "7.2.53211",
+  "gpu": "AMD Radeon 8060S Graphics",
+  "disk_caches": "retained",
+  "steps": 50,
+  "cfg": 2,
+  "seeds": [
+    1,
+    2
+  ],
+  "exports": "requested",
+  "rows": [
+    {
+      "label": "first",
+      "ok": true,
+      "timings": {
+        "prep": 1.838,
+        "dino+dit+decode": 1.642,
+        "colors": 0.133,
+        "chains": 0.385,
+        "glb": 0.184,
+        "total": 4.261
+      },
+      "notes": [
+        "input_alpha"
+      ],
+      "peak_allocated_bytes": 8772776960,
+      "peak_reserved_bytes": 9942597632,
+      "samples": [
+        {
+          "seed": 1,
+          "n_cards": 116,
+          "n_chains": 17,
+          "colors": true,
+          "files": {
+            "tokens_seed1.npy": "aca0d46c287dc4c99b16c5e17faf7d1d68ce56ea1d60923da6eee6b35049464a",
+            "cards_seed1.json": "bcc03b74ca2d97358c992b2c222d2231cf3f3068226430903fdd4f27755c1874",
+            "chains_seed1.json": "7dbfe74744cd5b111921bd7614114b7c926ae6912b120ef99082906dfaf5647f",
+            "hair_seed1.glb": "bc7567bef5e50f111cd00563091fb9cd4d2d25e5d06d5f3abdc48c3ae706126b"
+          }
+        },
+        {
+          "seed": 2,
+          "n_cards": 93,
+          "n_chains": 11,
+          "colors": true,
+          "files": {
+            "tokens_seed2.npy": "4b8dbb649453f453917a95c3732035740e22f84a0b0b1695b8d85479ba2adcfa",
+            "cards_seed2.json": "3f96de5a8a6f795d8be334c38a76cc0a1bf530822c5f363e5d5cc7d97feb795f",
+            "chains_seed2.json": "480bc43bf465f06da20550548b370ef6b2f8e476c9733763fc644375e5e91a5c",
+            "hair_seed2.glb": "5449cbab91e70b86319a8e689fe15697fd7b0f41f1fa45f4981c83f35e3dab2e"
+          }
+        }
+      ]
+    },
+    {
+      "label": "warm-1",
+      "ok": true,
+      "timings": {
+        "prep": 1.059,
+        "dino+dit+decode": 1.594,
+        "colors": 0.083,
+        "chains": 0.385,
+        "glb": 0.183,
+        "total": 3.39
+      },
+      "notes": [
+        "input_alpha"
+      ],
+      "peak_allocated_bytes": 8772776960,
+      "peak_reserved_bytes": 10586423296,
+      "samples": [
+        {
+          "seed": 1,
+          "n_cards": 116,
+          "n_chains": 17,
+          "colors": true,
+          "files": {
+            "tokens_seed1.npy": "aca0d46c287dc4c99b16c5e17faf7d1d68ce56ea1d60923da6eee6b35049464a",
+            "cards_seed1.json": "bcc03b74ca2d97358c992b2c222d2231cf3f3068226430903fdd4f27755c1874",
+            "chains_seed1.json": "7dbfe74744cd5b111921bd7614114b7c926ae6912b120ef99082906dfaf5647f",
+            "hair_seed1.glb": "bc7567bef5e50f111cd00563091fb9cd4d2d25e5d06d5f3abdc48c3ae706126b"
+          }
+        },
+        {
+          "seed": 2,
+          "n_cards": 93,
+          "n_chains": 11,
+          "colors": true,
+          "files": {
+            "tokens_seed2.npy": "4b8dbb649453f453917a95c3732035740e22f84a0b0b1695b8d85479ba2adcfa",
+            "cards_seed2.json": "3f96de5a8a6f795d8be334c38a76cc0a1bf530822c5f363e5d5cc7d97feb795f",
+            "chains_seed2.json": "480bc43bf465f06da20550548b370ef6b2f8e476c9733763fc644375e5e91a5c",
+            "hair_seed2.glb": "5449cbab91e70b86319a8e689fe15697fd7b0f41f1fa45f4981c83f35e3dab2e"
+          }
+        }
+      ]
+    },
+    {
+      "label": "warm-2",
+      "ok": true,
+      "timings": {
+        "prep": 1.074,
+        "dino+dit+decode": 1.544,
+        "colors": 0.083,
+        "chains": 0.386,
+        "glb": 0.194,
+        "total": 3.367
+      },
+      "notes": [
+        "input_alpha"
+      ],
+      "peak_allocated_bytes": 8772776960,
+      "peak_reserved_bytes": 10586423296,
+      "samples": [
+        {
+          "seed": 1,
+          "n_cards": 116,
+          "n_chains": 17,
+          "colors": true,
+          "files": {
+            "tokens_seed1.npy": "aca0d46c287dc4c99b16c5e17faf7d1d68ce56ea1d60923da6eee6b35049464a",
+            "cards_seed1.json": "bcc03b74ca2d97358c992b2c222d2231cf3f3068226430903fdd4f27755c1874",
+            "chains_seed1.json": "7dbfe74744cd5b111921bd7614114b7c926ae6912b120ef99082906dfaf5647f",
+            "hair_seed1.glb": "bc7567bef5e50f111cd00563091fb9cd4d2d25e5d06d5f3abdc48c3ae706126b"
+          }
+        },
+        {
+          "seed": 2,
+          "n_cards": 93,
+          "n_chains": 11,
+          "colors": true,
+          "files": {
+            "tokens_seed2.npy": "4b8dbb649453f453917a95c3732035740e22f84a0b0b1695b8d85479ba2adcfa",
+            "cards_seed2.json": "3f96de5a8a6f795d8be334c38a76cc0a1bf530822c5f363e5d5cc7d97feb795f",
+            "chains_seed2.json": "480bc43bf465f06da20550548b370ef6b2f8e476c9733763fc644375e5e91a5c",
+            "hair_seed2.glb": "5449cbab91e70b86319a8e689fe15697fd7b0f41f1fa45f4981c83f35e3dab2e"
+          }
+        }
+      ]
+    },
+    {
+      "label": "warm-3",
+      "ok": true,
+      "timings": {
+        "prep": 1.07,
+        "dino+dit+decode": 1.563,
+        "colors": 0.082,
+        "chains": 0.385,
+        "glb": 0.195,
+        "total": 3.385
+      },
+      "notes": [
+        "input_alpha"
+      ],
+      "peak_allocated_bytes": 8772776960,
+      "peak_reserved_bytes": 10586423296,
+      "samples": [
+        {
+          "seed": 1,
+          "n_cards": 116,
+          "n_chains": 17,
+          "colors": true,
+          "files": {
+            "tokens_seed1.npy": "aca0d46c287dc4c99b16c5e17faf7d1d68ce56ea1d60923da6eee6b35049464a",
+            "cards_seed1.json": "bcc03b74ca2d97358c992b2c222d2231cf3f3068226430903fdd4f27755c1874",
+            "chains_seed1.json": "7dbfe74744cd5b111921bd7614114b7c926ae6912b120ef99082906dfaf5647f",
+            "hair_seed1.glb": "bc7567bef5e50f111cd00563091fb9cd4d2d25e5d06d5f3abdc48c3ae706126b"
+          }
+        },
+        {
+          "seed": 2,
+          "n_cards": 93,
+          "n_chains": 11,
+          "colors": true,
+          "files": {
+            "tokens_seed2.npy": "4b8dbb649453f453917a95c3732035740e22f84a0b0b1695b8d85479ba2adcfa",
+            "cards_seed2.json": "3f96de5a8a6f795d8be334c38a76cc0a1bf530822c5f363e5d5cc7d97feb795f",
+            "chains_seed2.json": "480bc43bf465f06da20550548b370ef6b2f8e476c9733763fc644375e5e91a5c",
+            "hair_seed2.glb": "5449cbab91e70b86319a8e689fe15697fd7b0f41f1fa45f4981c83f35e3dab2e"
+          }
+        }
+      ]
+    }
+  ],
+  "success": true,
+  "load_seconds": 15.454591664980398,
+  "input_sha256": "f591054e0d3646d9aef2fbc1a3d86d7afcd1fa262cc2deb19ce7d4384f682693",
+  "warm_median_seconds": 3.385,
+  "vrm": {
+    "vrm": "/workspace/hairdeck-root/results/rocm-pr-amd-candidate/warm-3/avatar_seed1.vrm",
+    "rest_png": "/workspace/hairdeck-root/results/rocm-pr-amd-candidate/warm-3/vrm_seed1/rest.png",
+    "render_error": null,
+    "ok": true,
+    "problems": [],
+    "n_cards": 116,
+    "n_chains_in": 17,
+    "n_chains": 16,
+    "n_spring_groups": 16,
+    "hair_verts": 17224,
+    "removed_hair": [
+      [
+        "Hair001",
+        "Hair001.baked",
+        176
+      ],
+      [
+        "Hair002",
+        "Hair002.baked",
+        176
+      ],
+      [
+        "Hair003",
+        "Hair003.baked",
+        136
+      ],
+      [
+        "Hair004",
+        "Hair004.baked",
+        136
+      ],
+      [
+        "Hair005",
+        "Hair005.baked",
+        56
+      ],
+      [
+        "Hair006",
+        "Hair006.baked",
+        92
+      ],
+      [
+        "Hair007",
+        "Hair007.baked",
+        110
+      ],
+      [
+        "Hair008",
+        "Hair008.baked",
+        134
+      ],
+      [
+        "Hair009",
+        "Hair009.baked",
+        56
+      ],
+      [
+        "Hair010",
+        "Hair010.baked",
+        68
+      ],
+      [
+        "Hair011",
+        "Hair011.baked",
+        56
+      ],
+      [
+        "Hair012",
+        "Hair012.baked",
+        68
+      ],
+      [
+        "Hair013",
+        "Hair013.baked",
+        68
+      ],
+      [
+        "Hair014",
+        "Hair014.baked",
+        92
+      ],
+      [
+        "Hair015",
+        "Hair015.baked",
+        80
+      ],
+      [
+        "Hair016",
+        "Hair016.baked",
+        110
+      ],
+      [
+        "Hair017",
+        "Hair017.baked",
+        122
+      ],
+      [
+        "Hair018",
+        "Hair018.baked",
+        128
+      ],
+      [
+        "Hair019",
+        "Hair019.baked",
+        146
+      ],
+      [
+        "Hair020",
+        "Hair020.baked",
+        80
+      ],
+      [
+        "Hair021",
+        "Hair021.baked",
+        56
+      ],
+      [
+        "Hair022",
+        "Hair022.baked",
+        86
+      ],
+      [
+        "Hair023",
+        "Hair023.baked",
+        110
+      ],
+      [
+        "Hair024",
+        "Hair024.baked",
+        134
+      ],
+      [
+        "Hair025",
+        "Hair025.baked",
+        56
+      ],
+      [
+        "Hair026",
+        "Hair026.baked",
+        68
+      ],
+      [
+        "Hair027",
+        "Hair027.baked",
+        56
+      ],
+      [
+        "Hair028",
+        "Hair028.baked",
+        68
+      ],
+      [
+        "Hair029",
+        "Hair029.baked",
+        68
+      ],
+      [
+        "Hair030",
+        "Hair030.baked",
+        92
+      ],
+      [
+        "Hair031",
+        "Hair031.baked",
+        80
+      ],
+      [
+        "Hair032",
+        "Hair032.baked",
+        110
+      ],
+      [
+        "Hair033",
+        "Hair033.baked",
+        122
+      ],
+      [
+        "Hair034",
+        "Hair034.baked",
+        128
+      ],
+      [
+        "Hair035",
+        "Hair035.baked",
+        146
+      ],
+      [
+        "Hair036",
+        "Hair036.baked",
+        80
+      ],
+      [
+        "Hair037",
+        "Hair037.baked",
+        146
+      ],
+      [
+        "Hair038",
+        "Hair038.baked",
+        146
+      ],
+      [
+        "Hair039",
+        "Hair039.baked",
+        176
+      ],
+      [
+        "Hair040",
+        "Hair040.baked",
+        176
+      ],
+      [
+        "Hair041",
+        "Hair041.baked",
+        158
+      ],
+      [
+        "Hair042",
+        "Hair042.baked",
+        158
+      ]
+    ],
+    "bones_deleted": 10,
+    "blender_sec": {
+      "import_vrm": 3.04,
+      "edit": 0.24,
+      "export": 3.58
+    },
+    "blender_path": "one-shot",
+    "render_queue_patched": [],
+    "size_mb": 13.9,
+    "timings": {
+      "prep": 0.32,
+      "blender": 7.24,
+      "check": 0.01,
+      "render": 0.86,
+      "total": 8.43
+    }
+  },
+  "preview": {
+    "out": "/workspace/hairdeck-root/results/rocm-pr-amd-candidate/warm-3/turn_seed1.mp4",
+    "frames": 90,
+    "fps": 30,
+    "seconds": 3.0,
+    "n_cards": 116,
+    "n_chains": 17,
+    "cards_on_chains": 116,
+    "bind_mismatch_rigid": 0,
+    "chain_info": [
+      {
+        "joints": 4,
+        "rigid_bones": 0,
+        "pushes": 0
+      },
+      {
+        "joints": 4,
+        "rigid_bones": 0,
+        "pushes": 0
+      },
+      {
+        "joints": 3,
+        "rigid_bones": 0,
+        "pushes": 0
+      },
+      {
+        "joints": 4,
+        "rigid_bones": 0,
+        "pushes": 0
+      },
+      {
+        "joints": 3,
+        "rigid_bones": 0,
+        "pushes": 0
+      },
+      {
+        "joints": 3,
+        "rigid_bones": 0,
+        "pushes": 0
+      },
+      {
+        "joints": 3,
+        "rigid_bones": 1,
+        "pushes": 0
+      },
+      {
+        "joints": 4,
+        "rigid_bones": 0,
+        "pushes": 0
+      },
+      {
+        "joints": 4,
+        "rigid_bones": 0,
+        "pushes": 0
+      },
+      {
+        "joints": 4,
+        "rigid_bones": 0,
+        "pushes": 0
+      },
+      {
+        "joints": 3,
+        "rigid_bones": 0,
+        "pushes": 0
+      },
+      {
+        "joints": 3,
+        "rigid_bones": 0,
+        "pushes": 0
+      },
+      {
+        "joints": 3,
+        "rigid_bones": 0,
+        "pushes": 0
+      },
+      {
+        "joints": 3,
+        "rigid_bones": 0,
+        "pushes": 0
+      },
+      {
+        "joints": 3,
+        "rigid_bones": 0,
+        "pushes": 0
+      },
+      {
+        "joints": 4,
+        "rigid_bones": 0,
+        "pushes": 0
+      },
+      {
+        "joints": 4,
+        "rigid_bones": 0,
+        "pushes": 0
+      }
+    ],
+    "collider_pushes": 0,
+    "max_motion_cm": 36.21,
+    "mean_motion_cm": 1.343,
+    "meters_per_head_unit": 1.7057329698799537,
+    "face_width_m": 0.21764852106570676,
+    "sec": {
+      "sim": 0.51,
+      "render": 2.26,
+      "encode": 0.15,
+      "total": 3.47
+    },
+    "wall_sec": 3.92,
+    "inputs_sha256": "586095cbdf20d376525e1f775288e9e233ccfa4dd9eeeb95acdc1d5ccfc6b602"
+  }
+}
