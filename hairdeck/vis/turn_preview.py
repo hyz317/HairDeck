@@ -237,36 +237,46 @@ def preview(cards_json, chains_json, colour, out, show_chains=False, body=None):
     d /= np.linalg.norm(d)
     size = 480
     r = pyrender.OffscreenRenderer(size, size)
-    fdir = f'{os.path.splitext(out)[0]}_frames'
-    os.makedirs(fdir, exist_ok=True)
+    # Stream the exact RGB frames to ffmpeg: avoid PNG compression, disk writes and decoding.
+    encoder = subprocess.Popen([ffmpeg, '-y', '-loglevel', 'error', '-f', 'rawvideo', '-pixel_format', 'rgb24',
+                                '-video_size', f'{size}x{size}', '-framerate', str(FPS // EVERY), '-i', 'pipe:0',
+                                '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-crf', '22', '-movflags', '+faststart', out],
+                               stdin=subprocess.PIPE)
     t0 = time.time()
-    for i, fr in enumerate(frames):
-        s = pyrender.Scene(bg_color=[0, 0, 0, 0], ambient_light=[0.28] * 3)
-        s.add(pyrender.OrthographicCamera(xmag=half, ymag=half, znear=0.01, zfar=40 * half), pose=look(tgt + d * 8 * half, tgt))
-        for dd, kk in ((d + np.array([-0.5, 0.8, 0]), 2.4), (d + np.array([0.8, 0, 0]), 0.8), (-d + np.array([0, 0.5, 0]), 1.2)):
-            s.add(pyrender.DirectionalLight(color=np.ones(3), intensity=kk), pose=look(tgt + dd, tgt))
-        s.add(flat_mesh(X[fr], F, colour, vertex_colour=VC))
-        s.add(flat_mesh(np.einsum('ij,mj->mi', R[fr], proxy_V - piv) + piv, proxy_F, np.array([0.72, 0.72, 0.72]), False))
-        if show_chains:
-            for (heads, _), c in zip(sim, chains):
-                for q in heads[fr]:
-                    sp = trimesh.creation.icosphere(subdivisions=1, radius=0.006)
-                    sp.apply_translation(q)
-                    s.add(flat_mesh(np.asarray(sp.vertices), np.asarray(sp.faces), np.array([0.95, 0.45, 0.1]), False))
-        rgba, depth = r.render(s, flags=pyrender.RenderFlags.RGBA)
-        # OSMesa returns RGB only: coverage from the depth buffer there
-        a = rgba[..., 3:4] / 255.0 if rgba.shape[-1] == 4 else (depth > 0)[..., None].astype(np.float64)
-        im = Image.fromarray((rgba[..., :3] * a + BG * (1 - a)).astype(np.uint8))
-        ImageDraw.Draw(im).text((8, 8), f't = {t[fr]:.2f} s   head yaw {yaw_deg(t[fr]):+.0f} deg   max hair motion vs head '
-                                         f'{disp[fr].max() * 100:.1f} cm', fill=(40, 40, 40))
-        im.save(f'{fdir}/{i:04d}.png')
-    r.delete()
-    t_render = time.time() - t0
-    t0 = time.time()
-    subprocess.run([ffmpeg, '-y', '-loglevel', 'error', '-framerate', str(FPS // EVERY), '-i', f'{fdir}/%04d.png',
-                    '-c:v', 'libx264', '-pix_fmt', 'yuv420p', '-crf', '22', '-movflags', '+faststart', out], check=True)
-    t_enc = time.time() - t0
-    shutil.rmtree(fdir, ignore_errors=True)
+    try:
+        for i, fr in enumerate(frames):
+            s = pyrender.Scene(bg_color=[0, 0, 0, 0], ambient_light=[0.28] * 3)
+            s.add(pyrender.OrthographicCamera(xmag=half, ymag=half, znear=0.01, zfar=40 * half), pose=look(tgt + d * 8 * half, tgt))
+            for dd, kk in ((d + np.array([-0.5, 0.8, 0]), 2.4), (d + np.array([0.8, 0, 0]), 0.8), (-d + np.array([0, 0.5, 0]), 1.2)):
+                s.add(pyrender.DirectionalLight(color=np.ones(3), intensity=kk), pose=look(tgt + dd, tgt))
+            s.add(flat_mesh(X[fr], F, colour, vertex_colour=VC))
+            s.add(flat_mesh(np.einsum('ij,mj->mi', R[fr], proxy_V - piv) + piv, proxy_F, np.array([0.72, 0.72, 0.72]), False))
+            if show_chains:
+                for (heads, _), c in zip(sim, chains):
+                    for q in heads[fr]:
+                        sp = trimesh.creation.icosphere(subdivisions=1, radius=0.006)
+                        sp.apply_translation(q)
+                        s.add(flat_mesh(np.asarray(sp.vertices), np.asarray(sp.faces), np.array([0.95, 0.45, 0.1]), False))
+            rgba, depth = r.render(s, flags=pyrender.RenderFlags.RGBA)
+            # OSMesa returns RGB only: coverage from the depth buffer there
+            a = rgba[..., 3:4] / 255.0 if rgba.shape[-1] == 4 else (depth > 0)[..., None].astype(np.float64)
+            im = Image.fromarray((rgba[..., :3] * a + BG * (1 - a)).astype(np.uint8))
+            ImageDraw.Draw(im).text((8, 8), f't = {t[fr]:.2f} s   head yaw {yaw_deg(t[fr]):+.0f} deg   max hair motion vs head '
+                                             f'{disp[fr].max() * 100:.1f} cm', fill=(40, 40, 40))
+            encoder.stdin.write(im.tobytes())
+        t_render = time.time() - t0
+        t0 = time.time()
+        encoder.stdin.close()
+        if encoder.wait() != 0:
+            raise RuntimeError('Preview video encoding failed')
+        t_enc = time.time() - t0  # encoder flush; encoding overlaps rendering
+    finally:
+        r.delete()
+        if encoder.poll() is None:
+            encoder.terminate()
+            encoder.wait()
+        if not encoder.stdin.closed:
+            encoder.stdin.close()
     return dict(out=out, frames=len(frames), fps=FPS // EVERY, seconds=round(len(frames) / (FPS // EVERY), 2), n_cards=len(cards),
                 n_chains=len(chains), cards_on_chains=int(sum(1 for c in ch if c[0] >= 0)),
                 bind_mismatch_rigid=rigid_mismatch, chain_info=sinfo, collider_pushes=int(sum(x['pushes'] for x in sinfo)),
