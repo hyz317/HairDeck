@@ -1,0 +1,26 @@
+[
+  {
+    "seed": 1,
+    "identical": false,
+    "relative_l2": 0.03878386691212654,
+    "max_absolute": 0.9344819784164429
+  },
+  {
+    "seed": 2,
+    "identical": false,
+    "relative_l2": 0.02621074765920639,
+    "max_absolute": 0.8300623297691345
+  },
+  {
+    "seed": 3,
+    "identical": false,
+    "relative_l2": 0.07969168573617935,
+    "max_absolute": 2.515096426010132
+  },
+  {
+    "seed": 4,
+    "identical": false,
+    "relative_l2": 0.005341732874512672,
+    "max_absolute": 0.1037147045135498
+  }
+]
