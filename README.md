@@ -122,7 +122,7 @@ python -m hairdeck.vrm.export results/my_character/character 0
 Results are written to `OUT/<image name>/`, here `results/my_character/character/`.
 `--n` accepts 1–4 variations; `--seed` sets the first seed. Use `--no-chains` to generate cards only, and `--no-colors` for one hair color.
 For custom models, pass `--ckpt` and a matching `--chain_ckpt` trained with the same card VAE.
-Set `HAIRDECK_FAST=1` to sample with the [fast sampler](docs/fast-sampler.md) (about 2x faster sampling at small batch sizes; on by default with ROCm).
+Set `HAIRDECK_FAST=1` to sample with the [fast sampler](docs/fast-sampler.md) (2-3x faster sampling at small batch sizes, measured on NVIDIA and AMD; on by default with ROCm).
 
 <a name="local-demo"></a>
 
