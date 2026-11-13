@@ -90,3 +90,7 @@ processes and do not represent total physical memory use.
 
 `--no-exports` explicitly records inference-only coverage for environments without
 a working Blender/renderer; it must not be reported as a full workflow pass.
+
+The [recorded compatibility comparison](measurements/rocm-compat/README.md) covers
+Strix Halo, RTX 5060 Ti and PGX GB10, with exact per-device output hashes, allocation
+measurements and explicit export-coverage limits.

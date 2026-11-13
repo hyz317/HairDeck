@@ -1,5 +1,5 @@
 # After weights and assets are installed, run from the repository root:
-# RENDER_GID=$(getent group render | cut -d: -f3) VIDEO_GID=$(getent group video | cut -d: -f3) 
+# RENDER_GID=$(getent group render | cut -d: -f3) VIDEO_GID=$(getent group video | cut -d: -f3)
 #   docker compose -f docker/compose.rocm.yml up -d
 services:
   hairdeck:

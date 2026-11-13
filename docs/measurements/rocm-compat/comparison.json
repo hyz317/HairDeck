@@ -1,0 +1,47 @@
+[
+  {
+    "device": "5060",
+    "gpu": "NVIDIA GeForce RTX 5060 Ti",
+    "baseline_revision": "cb20f7073419a33c9ab88f22f686fcb9060a99f0",
+    "candidate_revision": "61c19348ea759aadd58563ba5abbf5a9558a282e",
+    "input_sha256": "f591054e0d3646d9aef2fbc1a3d86d7afcd1fa262cc2deb19ce7d4384f682693",
+    "all_output_hashes_identical": true,
+    "baseline_warm_median_seconds": 10.239,
+    "candidate_warm_median_seconds": 9.212,
+    "baseline_peak_warm_allocated_bytes": 9895692288,
+    "candidate_peak_warm_allocated_bytes": 9895692288,
+    "baseline_first_request_seconds": 29.422,
+    "candidate_first_request_seconds": 28.363,
+    "exports": "VRM validated, rest rendered, 90-frame motion preview completed on both revisions"
+  },
+  {
+    "device": "pgx",
+    "gpu": "NVIDIA GB10",
+    "baseline_revision": "cb20f7073419a33c9ab88f22f686fcb9060a99f0",
+    "candidate_revision": "61c19348ea759aadd58563ba5abbf5a9558a282e",
+    "input_sha256": "f591054e0d3646d9aef2fbc1a3d86d7afcd1fa262cc2deb19ce7d4384f682693",
+    "all_output_hashes_identical": true,
+    "baseline_warm_median_seconds": 2.667,
+    "candidate_warm_median_seconds": 2.655,
+    "baseline_peak_warm_allocated_bytes": 9893857280,
+    "candidate_peak_warm_allocated_bytes": 9893857280,
+    "baseline_first_request_seconds": 5.431,
+    "candidate_first_request_seconds": 4.243,
+    "exports": "not run on PGX"
+  },
+  {
+    "device": "amd",
+    "gpu": "AMD Radeon 8060S Graphics",
+    "baseline_revision": "cb20f7073419a33c9ab88f22f686fcb9060a99f0",
+    "candidate_revision": "61c1934",
+    "input_sha256": "f591054e0d3646d9aef2fbc1a3d86d7afcd1fa262cc2deb19ce7d4384f682693",
+    "all_output_hashes_identical": true,
+    "baseline_warm_median_seconds": 3.355,
+    "candidate_warm_median_seconds": 3.385,
+    "baseline_peak_warm_allocated_bytes": 8772776960,
+    "candidate_peak_warm_allocated_bytes": 8772776960,
+    "baseline_first_request_seconds": 5.584,
+    "candidate_first_request_seconds": 4.261,
+    "exports": "VRM validated, rest rendered, 90-frame motion preview completed on both revisions"
+  }
+]

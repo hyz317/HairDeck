@@ -1,0 +1,196 @@
+{
+  "revision": "61c19348ea759aadd58563ba5abbf5a9558a282e",
+  "python": "3.12.3",
+  "platform": "Linux-6.17.0-1026-nvidia-aarch64-with-glibc2.39",
+  "torch": "2.8.0+cu129",
+  "torchvision": "0.23.0",
+  "cuda": "12.9",
+  "hip": null,
+  "gpu": "NVIDIA GB10",
+  "disk_caches": "retained",
+  "steps": 50,
+  "cfg": 2,
+  "seeds": [
+    1,
+    2
+  ],
+  "exports": "skipped explicitly",
+  "rows": [
+    {
+      "label": "first",
+      "ok": true,
+      "timings": {
+        "prep": 2.26,
+        "dino+dit+decode": 1.275,
+        "colors": 0.115,
+        "chains": 0.387,
+        "glb": 0.161,
+        "total": 4.243
+      },
+      "notes": [
+        "input_alpha"
+      ],
+      "peak_allocated_bytes": 10512534016,
+      "peak_reserved_bytes": 13451132928,
+      "samples": [
+        {
+          "seed": 1,
+          "n_cards": 116,
+          "n_chains": 16,
+          "colors": true,
+          "files": {
+            "tokens_seed1.npy": "b74b183050e3331b996d37bcf12904388de8c77bf89998ae4abbc09a42e8b6cf",
+            "cards_seed1.json": "2ce48b989726c5678a1c80054f377def6b6726e02bfa6260889cf12a129805de",
+            "chains_seed1.json": "da955c850c2d35ae50301aa36b9b6a0582cc282f5af818f48ca29ac29b912f3c",
+            "hair_seed1.glb": "bab16396571835b1eed3d6f86ccef842078b6808870c2de61001a41f647726e7"
+          }
+        },
+        {
+          "seed": 2,
+          "n_cards": 92,
+          "n_chains": 11,
+          "colors": true,
+          "files": {
+            "tokens_seed2.npy": "e0ca284c769346ce68a8c4ba0c0319f155eef6ac447a4c322f92265c7a429cd8",
+            "cards_seed2.json": "3689a4e953019f12ea17c39bfcc34e9b8c00d753584c1f30757a4cda1415cf27",
+            "chains_seed2.json": "0e33917c4d580ddea004f5078db65ad739cc49c67c49a6ee24a68afd2d017b31",
+            "hair_seed2.glb": "7f29582851f9d13b37ab35d712b71cf3de3201513fce127d00178e22eda1640c"
+          }
+        }
+      ]
+    },
+    {
+      "label": "warm-1",
+      "ok": true,
+      "timings": {
+        "prep": 0.801,
+        "dino+dit+decode": 1.188,
+        "colors": 0.06,
+        "chains": 0.349,
+        "glb": 0.16,
+        "total": 2.702
+      },
+      "notes": [
+        "input_alpha"
+      ],
+      "peak_allocated_bytes": 9893857280,
+      "peak_reserved_bytes": 13451132928,
+      "samples": [
+        {
+          "seed": 1,
+          "n_cards": 116,
+          "n_chains": 16,
+          "colors": true,
+          "files": {
+            "tokens_seed1.npy": "b74b183050e3331b996d37bcf12904388de8c77bf89998ae4abbc09a42e8b6cf",
+            "cards_seed1.json": "2ce48b989726c5678a1c80054f377def6b6726e02bfa6260889cf12a129805de",
+            "chains_seed1.json": "da955c850c2d35ae50301aa36b9b6a0582cc282f5af818f48ca29ac29b912f3c",
+            "hair_seed1.glb": "bab16396571835b1eed3d6f86ccef842078b6808870c2de61001a41f647726e7"
+          }
+        },
+        {
+          "seed": 2,
+          "n_cards": 92,
+          "n_chains": 11,
+          "colors": true,
+          "files": {
+            "tokens_seed2.npy": "e0ca284c769346ce68a8c4ba0c0319f155eef6ac447a4c322f92265c7a429cd8",
+            "cards_seed2.json": "3689a4e953019f12ea17c39bfcc34e9b8c00d753584c1f30757a4cda1415cf27",
+            "chains_seed2.json": "0e33917c4d580ddea004f5078db65ad739cc49c67c49a6ee24a68afd2d017b31",
+            "hair_seed2.glb": "7f29582851f9d13b37ab35d712b71cf3de3201513fce127d00178e22eda1640c"
+          }
+        }
+      ]
+    },
+    {
+      "label": "warm-2",
+      "ok": true,
+      "timings": {
+        "prep": 0.799,
+        "dino+dit+decode": 1.188,
+        "colors": 0.06,
+        "chains": 0.349,
+        "glb": 0.159,
+        "total": 2.651
+      },
+      "notes": [
+        "input_alpha"
+      ],
+      "peak_allocated_bytes": 9893857280,
+      "peak_reserved_bytes": 13451132928,
+      "samples": [
+        {
+          "seed": 1,
+          "n_cards": 116,
+          "n_chains": 16,
+          "colors": true,
+          "files": {
+            "tokens_seed1.npy": "b74b183050e3331b996d37bcf12904388de8c77bf89998ae4abbc09a42e8b6cf",
+            "cards_seed1.json": "2ce48b989726c5678a1c80054f377def6b6726e02bfa6260889cf12a129805de",
+            "chains_seed1.json": "da955c850c2d35ae50301aa36b9b6a0582cc282f5af818f48ca29ac29b912f3c",
+            "hair_seed1.glb": "bab16396571835b1eed3d6f86ccef842078b6808870c2de61001a41f647726e7"
+          }
+        },
+        {
+          "seed": 2,
+          "n_cards": 92,
+          "n_chains": 11,
+          "colors": true,
+          "files": {
+            "tokens_seed2.npy": "e0ca284c769346ce68a8c4ba0c0319f155eef6ac447a4c322f92265c7a429cd8",
+            "cards_seed2.json": "3689a4e953019f12ea17c39bfcc34e9b8c00d753584c1f30757a4cda1415cf27",
+            "chains_seed2.json": "0e33917c4d580ddea004f5078db65ad739cc49c67c49a6ee24a68afd2d017b31",
+            "hair_seed2.glb": "7f29582851f9d13b37ab35d712b71cf3de3201513fce127d00178e22eda1640c"
+          }
+        }
+      ]
+    },
+    {
+      "label": "warm-3",
+      "ok": true,
+      "timings": {
+        "prep": 0.803,
+        "dino+dit+decode": 1.188,
+        "colors": 0.061,
+        "chains": 0.349,
+        "glb": 0.16,
+        "total": 2.655
+      },
+      "notes": [
+        "input_alpha"
+      ],
+      "peak_allocated_bytes": 9893857280,
+      "peak_reserved_bytes": 13451132928,
+      "samples": [
+        {
+          "seed": 1,
+          "n_cards": 116,
+          "n_chains": 16,
+          "colors": true,
+          "files": {
+            "tokens_seed1.npy": "b74b183050e3331b996d37bcf12904388de8c77bf89998ae4abbc09a42e8b6cf",
+            "cards_seed1.json": "2ce48b989726c5678a1c80054f377def6b6726e02bfa6260889cf12a129805de",
+            "chains_seed1.json": "da955c850c2d35ae50301aa36b9b6a0582cc282f5af818f48ca29ac29b912f3c",
+            "hair_seed1.glb": "bab16396571835b1eed3d6f86ccef842078b6808870c2de61001a41f647726e7"
+          }
+        },
+        {
+          "seed": 2,
+          "n_cards": 92,
+          "n_chains": 11,
+          "colors": true,
+          "files": {
+            "tokens_seed2.npy": "e0ca284c769346ce68a8c4ba0c0319f155eef6ac447a4c322f92265c7a429cd8",
+            "cards_seed2.json": "3689a4e953019f12ea17c39bfcc34e9b8c00d753584c1f30757a4cda1415cf27",
+            "chains_seed2.json": "0e33917c4d580ddea004f5078db65ad739cc49c67c49a6ee24a68afd2d017b31",
+            "hair_seed2.glb": "7f29582851f9d13b37ab35d712b71cf3de3201513fce127d00178e22eda1640c"
+          }
+        }
+      ]
+    }
+  ],
+  "success": true,
+  "load_seconds": 20.2391234789975,
+  "input_sha256": "f591054e0d3646d9aef2fbc1a3d86d7afcd1fa262cc2deb19ce7d4384f682693",
+  "warm_median_seconds": 2.655
+}

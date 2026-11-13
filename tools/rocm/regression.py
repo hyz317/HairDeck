@@ -17,6 +17,7 @@ from pathlib import Path
 parser = argparse.ArgumentParser()
 parser.add_argument('--repo', type=Path, default=Path(__file__).resolve().parents[2])
 parser.add_argument('--out', type=Path, required=True)
+parser.add_argument('--revision', help='Explicit source commit for an archive/container without accessible Git metadata')
 parser.add_argument('--no-exports', action='store_true', help='Inference-only coverage; explicitly records skipped exports')
 args = parser.parse_args()
 repo = args.repo.resolve()
@@ -32,7 +33,7 @@ import torchvision
 from hairdeck import paths
 from hairdeck.infer.image import Pipeline
 
-report = dict(revision=subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=repo, text=True).strip(),
+report = dict(revision=args.revision or subprocess.check_output(['git', 'rev-parse', 'HEAD'], cwd=repo, text=True).strip(),
               python=platform.python_version(), platform=platform.platform(), torch=torch.__version__,
               torchvision=torchvision.__version__, cuda=torch.version.cuda, hip=torch.version.hip,
               gpu=torch.cuda.get_device_name(), disk_caches='retained', steps=50, cfg=2,
