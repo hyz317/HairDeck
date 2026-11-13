@@ -1,0 +1,4 @@
+# Keep the base image's gfx1151 ROCm builds: nothing in requirements-rocm.txt may replace them.
+torch==2.13.0+git733fca1
+torchvision==0.28.0+8fb8771
+triton==3.8.0+git669b31ac

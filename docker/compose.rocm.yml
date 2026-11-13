@@ -1,0 +1,30 @@
+# After weights and assets are installed, run from the repository root:
+# RENDER_GID=$(getent group render | cut -d: -f3) VIDEO_GID=$(getent group video | cut -d: -f3) 
+#   docker compose -f docker/compose.rocm.yml up -d
+services:
+  hairdeck:
+    image: ${HAIRDECK_IMAGE:-hairdeck-rocm}
+    init: true
+    restart: unless-stopped
+    devices:
+      - /dev/kfd:/dev/kfd
+      - /dev/dri:/dev/dri
+    group_add:
+      - ${RENDER_GID:?Set RENDER_GID from getent group render}
+      - ${VIDEO_GID:?Set VIDEO_GID from getent group video}
+    shm_size: 16gb
+    cap_drop: [NET_RAW]
+    security_opt: [no-new-privileges:true]
+    ports: ["127.0.0.1:7860:7860"]
+    volumes:
+      - ..:/workspace/HairDeck
+      - ${HAIRDECK_DATA:-~/hairdeck-root}:/workspace/hairdeck-root
+      - ${HAIRDECK_HF_CACHE:-~/.cache/huggingface}:/root/.cache/huggingface
+    environment:
+      GRADIO_SERVER_NAME: 0.0.0.0
+    command: ["exec python -u -m demo.app --port 7860"]
+    logging:
+      driver: json-file
+      options:
+        max-size: 10m
+        max-file: "5"

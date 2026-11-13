@@ -694,7 +694,7 @@ def english_ui_js():
 
 def launch_kwargs(port):
     english = english_ui_js()
-    return dict(server_name='0.0.0.0' if os.environ.get('SPACE_ID') else '127.0.0.1',
+    return dict(server_name=os.environ.get('GRADIO_SERVER_NAME') or ('0.0.0.0' if os.environ.get('SPACE_ID') else '127.0.0.1'),
                 server_port=port, share=False, show_error=True, ssr_mode=False,
                 mcp_server=False, enable_monitoring=False, pwa=False, footer_links=[], max_file_size='60mb',
                 allowed_paths=[OUT_ROOT] + sorted({os.path.dirname(e) for e in EXAMPLES}),
