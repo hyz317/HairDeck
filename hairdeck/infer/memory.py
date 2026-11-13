@@ -8,11 +8,13 @@ import time
 import torch
 
 from .. import dev
+from ..sampling.fast import clear_weights
 
 GIB = 2 ** 30
 
 
 def move_model(model, device):
+    clear_weights(model)
     # Prep runs under inference_mode. Device transfers must still create ordinary
     # parameter tensors: these weights survive the context and later requests.
     with torch.inference_mode(False), torch.no_grad():

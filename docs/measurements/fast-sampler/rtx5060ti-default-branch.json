@@ -1,0 +1,196 @@
+{
+  "revision": "9620e27df8beaf649ca52bd20b477da944804b10",
+  "python": "3.12.15",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "torch": "2.8.0+cu128",
+  "torchvision": "0.23.0+cu128",
+  "cuda": "12.8",
+  "hip": null,
+  "gpu": "NVIDIA GeForce RTX 5060 Ti",
+  "disk_caches": "retained",
+  "steps": 50,
+  "cfg": 2,
+  "seeds": [
+    1,
+    2
+  ],
+  "exports": "skipped explicitly",
+  "rows": [
+    {
+      "label": "first",
+      "ok": true,
+      "timings": {
+        "prep": 20.29,
+        "dino+dit+decode": 7.151,
+        "colors": 0.316,
+        "chains": 3.751,
+        "glb": 0.98,
+        "total": 32.526
+      },
+      "notes": [
+        "input_alpha"
+      ],
+      "peak_allocated_bytes": 10505256448,
+      "peak_reserved_bytes": 11859394560,
+      "samples": [
+        {
+          "seed": 1,
+          "n_cards": 115,
+          "n_chains": 17,
+          "colors": true,
+          "files": {
+            "tokens_seed1.npy": "7f2f59924123aa44b4824e792fb64783c844967711575f183e7de491d0f578c7",
+            "cards_seed1.json": "e81e9064037906c14d9039d39fa84c4610a7003b93b884c68b414cff2fbf61ec",
+            "chains_seed1.json": "ed0d0cde01552f94aafcae16ff6fbe5e23fad33e6eb7948da773526335f9b37b",
+            "hair_seed1.glb": "0350647c3dbf931b7542f45260bc0283ed87ab88fbedc3d100fc7e70b8d31f26"
+          }
+        },
+        {
+          "seed": 2,
+          "n_cards": 91,
+          "n_chains": 11,
+          "colors": true,
+          "files": {
+            "tokens_seed2.npy": "1599fe4d627389394811a4628ec5a330abee631a0987132b8d5a2b57b2c980e5",
+            "cards_seed2.json": "04fe37324d64775144290629e77a000eee43690a101c9ee04cdd58ec7aa264fa",
+            "chains_seed2.json": "e2a2c732bd0707e2634c3b46b3bedc723134851a895142bb9ab3724ae95355b6",
+            "hair_seed2.glb": "8fd5f3cef5fa896dec32ce63ea993f097f9f22e4d376ff13cf30a849f35be6cf"
+          }
+        }
+      ]
+    },
+    {
+      "label": "warm-1",
+      "ok": true,
+      "timings": {
+        "prep": 0.836,
+        "dino+dit+decode": 5.953,
+        "colors": 0.19,
+        "chains": 3.651,
+        "glb": 0.836,
+        "total": 11.526
+      },
+      "notes": [
+        "input_alpha"
+      ],
+      "peak_allocated_bytes": 9895692288,
+      "peak_reserved_bytes": 11859394560,
+      "samples": [
+        {
+          "seed": 1,
+          "n_cards": 115,
+          "n_chains": 17,
+          "colors": true,
+          "files": {
+            "tokens_seed1.npy": "7f2f59924123aa44b4824e792fb64783c844967711575f183e7de491d0f578c7",
+            "cards_seed1.json": "e81e9064037906c14d9039d39fa84c4610a7003b93b884c68b414cff2fbf61ec",
+            "chains_seed1.json": "ed0d0cde01552f94aafcae16ff6fbe5e23fad33e6eb7948da773526335f9b37b",
+            "hair_seed1.glb": "0350647c3dbf931b7542f45260bc0283ed87ab88fbedc3d100fc7e70b8d31f26"
+          }
+        },
+        {
+          "seed": 2,
+          "n_cards": 91,
+          "n_chains": 11,
+          "colors": true,
+          "files": {
+            "tokens_seed2.npy": "1599fe4d627389394811a4628ec5a330abee631a0987132b8d5a2b57b2c980e5",
+            "cards_seed2.json": "04fe37324d64775144290629e77a000eee43690a101c9ee04cdd58ec7aa264fa",
+            "chains_seed2.json": "e2a2c732bd0707e2634c3b46b3bedc723134851a895142bb9ab3724ae95355b6",
+            "hair_seed2.glb": "8fd5f3cef5fa896dec32ce63ea993f097f9f22e4d376ff13cf30a849f35be6cf"
+          }
+        }
+      ]
+    },
+    {
+      "label": "warm-2",
+      "ok": true,
+      "timings": {
+        "prep": 0.847,
+        "dino+dit+decode": 5.897,
+        "colors": 0.238,
+        "chains": 3.454,
+        "glb": 0.795,
+        "total": 11.315
+      },
+      "notes": [
+        "input_alpha"
+      ],
+      "peak_allocated_bytes": 9895692288,
+      "peak_reserved_bytes": 11859394560,
+      "samples": [
+        {
+          "seed": 1,
+          "n_cards": 115,
+          "n_chains": 17,
+          "colors": true,
+          "files": {
+            "tokens_seed1.npy": "7f2f59924123aa44b4824e792fb64783c844967711575f183e7de491d0f578c7",
+            "cards_seed1.json": "e81e9064037906c14d9039d39fa84c4610a7003b93b884c68b414cff2fbf61ec",
+            "chains_seed1.json": "ed0d0cde01552f94aafcae16ff6fbe5e23fad33e6eb7948da773526335f9b37b",
+            "hair_seed1.glb": "0350647c3dbf931b7542f45260bc0283ed87ab88fbedc3d100fc7e70b8d31f26"
+          }
+        },
+        {
+          "seed": 2,
+          "n_cards": 91,
+          "n_chains": 11,
+          "colors": true,
+          "files": {
+            "tokens_seed2.npy": "1599fe4d627389394811a4628ec5a330abee631a0987132b8d5a2b57b2c980e5",
+            "cards_seed2.json": "04fe37324d64775144290629e77a000eee43690a101c9ee04cdd58ec7aa264fa",
+            "chains_seed2.json": "e2a2c732bd0707e2634c3b46b3bedc723134851a895142bb9ab3724ae95355b6",
+            "hair_seed2.glb": "8fd5f3cef5fa896dec32ce63ea993f097f9f22e4d376ff13cf30a849f35be6cf"
+          }
+        }
+      ]
+    },
+    {
+      "label": "warm-3",
+      "ok": true,
+      "timings": {
+        "prep": 0.824,
+        "dino+dit+decode": 6.564,
+        "colors": 0.233,
+        "chains": 4.562,
+        "glb": 0.979,
+        "total": 13.2
+      },
+      "notes": [
+        "input_alpha"
+      ],
+      "peak_allocated_bytes": 9895692288,
+      "peak_reserved_bytes": 11859394560,
+      "samples": [
+        {
+          "seed": 1,
+          "n_cards": 115,
+          "n_chains": 17,
+          "colors": true,
+          "files": {
+            "tokens_seed1.npy": "7f2f59924123aa44b4824e792fb64783c844967711575f183e7de491d0f578c7",
+            "cards_seed1.json": "e81e9064037906c14d9039d39fa84c4610a7003b93b884c68b414cff2fbf61ec",
+            "chains_seed1.json": "ed0d0cde01552f94aafcae16ff6fbe5e23fad33e6eb7948da773526335f9b37b",
+            "hair_seed1.glb": "0350647c3dbf931b7542f45260bc0283ed87ab88fbedc3d100fc7e70b8d31f26"
+          }
+        },
+        {
+          "seed": 2,
+          "n_cards": 91,
+          "n_chains": 11,
+          "colors": true,
+          "files": {
+            "tokens_seed2.npy": "1599fe4d627389394811a4628ec5a330abee631a0987132b8d5a2b57b2c980e5",
+            "cards_seed2.json": "04fe37324d64775144290629e77a000eee43690a101c9ee04cdd58ec7aa264fa",
+            "chains_seed2.json": "e2a2c732bd0707e2634c3b46b3bedc723134851a895142bb9ab3724ae95355b6",
+            "hair_seed2.glb": "8fd5f3cef5fa896dec32ce63ea993f097f9f22e4d376ff13cf30a849f35be6cf"
+          }
+        }
+      ]
+    }
+  ],
+  "success": true,
+  "load_seconds": 31.196515399991767,
+  "input_sha256": "f591054e0d3646d9aef2fbc1a3d86d7afcd1fa262cc2deb19ce7d4384f682693",
+  "warm_median_seconds": 11.526
+}

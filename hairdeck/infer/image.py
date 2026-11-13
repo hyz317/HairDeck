@@ -72,6 +72,9 @@ def euler_cfg(model, ctx, x, steps, cfg):
     """hairdeck.sampling.flow.fm_sample(model, ctx, n, d, steps, cfg, shift=1.0, sampler='euler') started from the given
     noise x (fm_sample draws x = randn(B, n, d, generator) itself; the same operations otherwise)."""
     B = ctx.shape[0]
+    from ..sampling import fast
+    if fast.enabled(model):  # the same steps, restructured for small batches (sampling/fast.py)
+        return fast.euler(model, ctx, x, steps, cfg)
     ts = torch.linspace(1, 0, steps + 1, device=ctx.device)
 
     def vel(x, t):

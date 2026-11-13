@@ -1,0 +1,104 @@
+{
+  "gpu": "AMD Radeon 8060S Graphics",
+  "torch": "2.13.0+git733fca1",
+  "cuda": null,
+  "hip": "7.2.53211",
+  "platform": "Linux-7.2.8-9-omarchy-x86_64-with-glibc2.35",
+  "example": "ex02.png",
+  "seeds": [
+    1,
+    2
+  ],
+  "steps": 50,
+  "cfg": 2,
+  "modes": {
+    "release": {
+      "first": {
+        "prep": 2.961,
+        "dino+dit+decode": 1.607,
+        "colors": 0.276,
+        "chains": 0.384,
+        "glb": 0.123,
+        "total": 5.335,
+        "wall": 5.335
+      },
+      "warm": [
+        {
+          "prep": 1.056,
+          "dino+dit+decode": 1.633,
+          "colors": 0.08,
+          "chains": 0.386,
+          "glb": 0.128,
+          "total": 3.283,
+          "wall": 3.283
+        },
+        {
+          "prep": 1.072,
+          "dino+dit+decode": 1.56,
+          "colors": 0.079,
+          "chains": 0.386,
+          "glb": 0.128,
+          "total": 3.226,
+          "wall": 3.226
+        },
+        {
+          "prep": 1.072,
+          "dino+dit+decode": 1.582,
+          "colors": 0.08,
+          "chains": 0.386,
+          "glb": 0.128,
+          "total": 3.247,
+          "wall": 3.248
+        }
+      ],
+      "median": {
+        "wall": 3.248,
+        "dino+dit+decode": 1.582
+      }
+    },
+    "fast": {
+      "first": {
+        "prep": 1.074,
+        "dino+dit+decode": 4.34,
+        "colors": 0.08,
+        "chains": 1.969,
+        "glb": 0.13,
+        "total": 7.592,
+        "wall": 7.592
+      },
+      "warm": [
+        {
+          "prep": 1.071,
+          "dino+dit+decode": 0.816,
+          "colors": 0.08,
+          "chains": 0.174,
+          "glb": 0.133,
+          "total": 2.275,
+          "wall": 2.275
+        },
+        {
+          "prep": 1.046,
+          "dino+dit+decode": 0.805,
+          "colors": 0.1,
+          "chains": 0.187,
+          "glb": 0.129,
+          "total": 2.248,
+          "wall": 2.248
+        },
+        {
+          "prep": 1.067,
+          "dino+dit+decode": 0.807,
+          "colors": 0.1,
+          "chains": 0.188,
+          "glb": 0.129,
+          "total": 2.271,
+          "wall": 2.271
+        }
+      ],
+      "median": {
+        "wall": 2.271,
+        "dino+dit+decode": 0.807
+      }
+    }
+  }
+}
