@@ -14,8 +14,8 @@ LPDDR5X shared by the CPU and the Radeon 8060S).
   Halo half of the eager step's time is those small kernels).
 
 The tensor operations are the module's under the same autocast, so up to the batching of the precomputed GEMMs the
-result is the original's; tools/rocm/check_fast.py compares them and the test-set metrics are unchanged
-(docs/rocm.md).
+result is the original's; tools/fast_sampler/check_fast.py compares them and the test-set metrics are unchanged
+(docs/fast-sampler.md).
 
 HAIRDECK_FAST: 1 on, 0 off; default on for ROCm builds of PyTorch, off otherwise (the CUDA release keeps its own path).
 HAIRDECK_COMPILE: 1 torch.compile the step, 0 eager; default as HAIRDECK_FAST. The first call per model and batch
